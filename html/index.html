@@ -8,6 +8,60 @@
     <link rel="stylesheet" href="../x3dom/x3dom.css">
 </head>
 <body>
-    
+    <x3d width='1920px' height='1080px'> 
+        <scene> 
+            <worldInfo title='Chair.x3d'/>
+            <transform translation='0.0 0.5 0.0'>
+            <shape>
+            <appearance DEF='Brown'>
+            <material diffuseColor='0.6 0.35 0.0'/>
+            </appearance>
+            <Box size='0.39 0.03 0.41'/>
+            </shape>
+            </transform>
+            <transform translation='0.1575 0.2485 0.1575'>
+            <shape DEF='Leg'>
+            <appearance USE=' Brown'/>
+            <Box size='0.03 0.497 0.03'/>
+            </shape>
+            </transform>
+            <transform translation='-0.1575 0.2485 0.1575'>
+            <shape USE=' Leg'/>
+            </transform>
+            <transform translation='-0.1575 0.2485 -0.1575'>
+            <shape USE=' Leg'/>
+            </transform>
+            <transform translation='0.1575 0.2485 -0.1575'>
+            <shape USE=' Leg'/>
+            </transform>
+            <transform rotation='0.0 0.0 1.0 -0.17' translation='0.1875 0.5 0.0'>
+            <transform translation='0.0 0.54 0.0'>
+            <shape>
+            <appearance USE=' Brown'/>
+            <Box size='0.06 0.17 0.43'/>
+            </shape>
+            </transform>
+            <transform translation='0.0 0.2275 0.0'>
+            <shape DEF='BackPole'>
+            <appearance USE=' Brown'/>
+            <Box size='0.02 0.455 0.02'/>
+            </shape>
+            </transform>
+            <transform translation='0.0 0.2275 -0.083'>
+            <shape USE=' BackPole'/>
+            </transform>
+            <transform translation='0.0 0.2275 0.083'>
+            <shape USE=' BackPole'/>
+            </transform>
+            <transform translation='0.0 0.2275 -0.166'>
+            <shape USE=' BackPole'/>
+            </transform>
+            <transform translation='0.0 0.2275 0.166'>
+            <shape USE=' BackPole'/>
+            </transform>
+            </transform>
+        </scene> 
+    </x3d> 
+
 </body>
 </html>
