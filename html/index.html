@@ -8,12 +8,19 @@
     <link rel="stylesheet" href="../x3dom/x3dom.css">
 </head>
 <body>
+    <button onclick="document.getElementById('right').setAttribute('set_bind','true');">Right</button>
+    <button onclick="document.getElementById('front').setAttribute('set_bind','true');">Left </button>
     <x3d width='900px' height='800px'>
-        <scene>
-            <!-- ground plane -->
-
-            <!-- end ground plane -->
-            <!--left-->
+        <scene DEF="scene">
+        <Viewpoint id="front" position="-0.07427 0.95329 -2.79608" orientation="-0.01451 0.99989 0.00319 3.15833" description="camera"></Viewpoint>
+        <Viewpoint id="right" position="-2.43383 1.07351 -1.28700" orientation="-0.00318 -0.99950 -0.03159 2.06609" description="camera"></Viewpoint>
+            <!-- ground plane & walls -->
+           
+        <Inline url="../assets/room.glb"></Inline>
+            
+            
+            <!-- walls  -->
+            <!--left  //TODO reserrer les rangs gauches et droites   --> 
             <Transform class="table chaise" id="rang-1-0" rotation="0,0,0,0" translation="0 0 0">
                 <Inline url="../assets/bureau.glb"></Inline>
                 <Transform rotation="0,-1,0,1.5">
@@ -65,7 +72,7 @@
             </Transform>
 
             <!--right-->
-            <Transform class="table chaise" id="rang-1-0" rotation="0,0,0,0" translation="0 0 7">
+            <!-- <Transform class="table chaise" id="rang-1-0" rotation="0,0,0,0" translation="0 0 7">
                 <Inline url="../assets/bureau.glb"></Inline>
                 <Transform rotation="0,-1,0,1.5">
                     <Transform translation=".3 0 -.35">
@@ -111,7 +118,7 @@
                         <Inline url="../assets/chair.glb"></Inline>
                     </Transform >
                 </Transform>
-            </Transform>
+            </Transform> -->
         </scene>  
     </x3d> 
 
