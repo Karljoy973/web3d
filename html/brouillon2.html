@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Web 3D</title>
+    <script type="text/javascript" src="../x3dom/x3dom.js"></script>
+    <link rel="stylesheet" href="../x3dom/x3dom.css">
+    <!-- Inclure la bibliothèque X3DOM pour travailler avec X3D dans le DOM -->
+    <script src="https://www.x3dom.org/download/x3dom.js"></script>
+    
+    
+    <script>
+    	//Round a float value to x.xx format
+    	function roundWithTwoDecimals(value)
+    	{
+    		return (Math.round(value * 100)) / 100;
+    	}
+    
+    	//Handle click on any group member
+    	function handleGroupClick(event)
+    	{
+    		//Mark hitting point
+    		$('#marker').attr('translation', event.hitPnt);
+    		console.log(event);
+    		
+    		//Display coordinates of hitting point (rounded)
+    		var coordinates = event.hitPnt;
+    		$('#coordX').html(roundWithTwoDecimals(coordinates[0]));
+    		$('#coordY').html(roundWithTwoDecimals(coordinates[1]));
+    		$('#coordZ').html(roundWithTwoDecimals(coordinates[2]));
+    	}
+    	
+    	//Handle click on a shape
+    	function handleSingleClick(shape)
+    	{
+    		$('#lastClickedObject').html($(shape).attr("def"));
+    		
+    	}
+        
+        $(document).ready(function(){
+        	//Add a onclick callback to every shape
+        	$("shape").each(function() {
+        		$(this).attr("onclick", "handleSingleClick(this)");
+        	});
+        });
+        </script>
+</head>
+
+<body>
+
+<h1>Object picking example</h1>
+
+<p>
+Click on any shape to get the id and the coordinates of the hitting point.
+</p>
+
+<x3d id="boxes" showstat="false" showlog="false" x="0px" y="0px" width="500px" height="500px" style="width: 500px; height: 500px;">
+    <scene render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" pickmode="idBuf" dopickpass="true" shadowobjectidmapping="">
+        <viewpoint position="-2.25680 3.36560 14.62828" orientation="-0.60104 -0.28053 0.74837 0.40903" bind="false" description="" isactive="false" nearclippingplane="-1" farclippingplane="-1" viewall="false" fieldofview="0.785398" centerofrotation="0,0,0" znear="-1" zfar="-1"></viewpoint>
+        <group onclick="handleGroupClick(event)" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0">
+
+            <transform def="coneTrafo" translation="-4.5 0 0" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                <shape def="coneShape" onclick="handleSingleClick(this)" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" ispickable="true" idoffset="0">
+                    <appearance def="coneApp" sorttype="auto" sortkey="0" alphaclipthreshold="0.1">
+                        <material diffusecolor="#FF6633" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0" transparency="0"></material>
+                    </appearance>
+                    <cone def="cone" solid="true" ccw="true" usegeocache="true" lit="true" bottomradius="1" topradius="0" height="2" bottom="true" side="true" top="true" subdivision="32"></cone>
+                </shape>
+            </transform>
+
+            <transform def="boxTrafo" translation="-1.5 0 0" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                <shape def="boxShape" onclick="handleSingleClick(this)" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" ispickable="true" idoffset="0">
+                    <appearance def="boxApp" sorttype="auto" sortkey="0" alphaclipthreshold="0.1">
+                        <material diffusecolor="#FF3366" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0" transparency="0"></material>
+                    </appearance>
+                    <box def="box" solid="true" ccw="true" usegeocache="true" lit="true" size="2,2,2" hashelpercolors="false"></box>
+                </shape>
+            </transform>
+
+            <transform def="sphereTrafo" translation="1.5 0 0" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                <shape def="sphereShape" id="test" onclick="handleSingleClick(this)" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" ispickable="true" idoffset="0">
+                    <appearance def="sphereApp" sorttype="auto" sortkey="0" alphaclipthreshold="0.1">
+                        <material diffusecolor="#3366FF" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0" transparency="0"></material>
+                    </appearance>
+                    <sphere def="sphere" solid="true" ccw="true" usegeocache="true" lit="true" radius="1" subdivision="24,24"></sphere>
+                </shape>
+            </transform>
+
+            <transform def="cylinderTrafo" translation="4.5 0 0" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" center="0,0,0" rotation="0,0,0,0" scale="1,1,1" scaleorientation="0,0,0,0">
+                <shape def="cylinderShape" onclick="handleSingleClick(this)" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" ispickable="true" idoffset="0">
+                    <appearance def="cylinderApp" sorttype="auto" sortkey="0" alphaclipthreshold="0.1">
+                        <material diffusecolor="#33FF66" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0" transparency="0"></material>
+                    </appearance>
+                    <cylinder def="cylinder" radius="1.0" height="2.0" solid="true" ccw="true" usegeocache="true" lit="true" bottom="true" top="true" subdivision="32" side="true"></cylinder>
+                </shape>
+            </transform>
+
+        </group>
+
+        <transform id="marker" scale=".15 .15 .15" translation="-4.016334553465091,-0.920552927212368,-0.842228382961502" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" center="0,0,0" rotation="0,0,0,0" scaleorientation="0,0,0,0">
+            <shape onclick="handleSingleClick(this)" render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" ispickable="true" idoffset="0">
+                <appearance sorttype="auto" sortkey="0" alphaclipthreshold="0.1">
+                    <material diffusecolor="#FFD966" ambientintensity="0.2" emissivecolor="0,0,0" shininess="0.2" specularcolor="0,0,0" transparency="0"></material>
+                </appearance>
+                <sphere solid="true" ccw="true" usegeocache="true" lit="true" radius="1" subdivision="24,24"></sphere>
+            </shape>
+        </transform>
+
+    <matrixtransform render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" matrix="1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1"><inline render="false" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" url="" load="true" description="" namespacename="" contenttype="" mapdeftoid="false"></inline></matrixtransform><matrixtransform render="true" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" matrix="1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1"><inline render="false" visible="true" bboxcenter="0,0,0" bboxsize="-1,-1,-1" bboxdisplay="false" bboxmargin="0.01" bboxcolor="1,1,0" url="" load="true" description="" namespacename="" contenttype="" mapdeftoid="false"></inline>
+    </matrixtransform>
+</scene>
+<canvas class="x3dom-canvas" id="x3dom-boxes-canvas" width="625" height="625" tabindex="0" style="width: 500px; height: 500px;"></canvas>
+<div class="x3dom-log" style="display: none;"><p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -3.9280 -0.8176 -0.9015</p>
+    <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ null"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -4.0163 -0.9206 -0.8422</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ coneShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -1.0204 0.1940 -0.8890</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ boxShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -0.6553 0.5397 -0.9995</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ boxShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -0.4998 0.4865 -0.9096</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ boxShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position 1.1269 0.6301 -0.7102</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ sphereShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position 3.7696 -0.2612 -1.2176</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ cylinderShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position 3.7266 0.9689 -0.6294</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ cylinderShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position 1.7627 0.3384 -0.9073</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ sphereShape"</p>
+        <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -2.0003 1.0213 -0.7479</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ boxShape"</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -4.2277 0.2902 0.2411</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ coneShape"</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position 2.3942 0.4831 -0.0080</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ sphereShape"</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position 4.4215 1.0214 0.1193</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ cylinderShape"</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Ray hit at position -1.8909 0.3208 0.9467</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Hit "shape/ boxShape"</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Time for setup and init of GL element no. 0: 78 ms.</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: activate FogBindable null/defaultX3DFogNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: register FogBindable null/defaultX3DFogNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: create new Fog for X3DFogNode-stack</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: activate ViewpointBindable null/</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: activate first X3DViewpointNode for X3DViewpointNode-stack</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: activate BackgroundBindable null/defaultX3DBackgroundNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: register BackgroundBindable null/defaultX3DBackgroundNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: create new Background for X3DBackgroundNode-stack</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: System ready.</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: activate NavigationInfoBindable null/defaultX3DNavigationInfoNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: register NavigationInfoBindable null/defaultX3DNavigationInfoNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: NavType: undefined</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Switch to examine mode.</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: create new NavigationInfo for X3DNavigationInfoNode-stack</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: activate EnvironmentBindable null/defaultX3DEnvironmentNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: register EnvironmentBindable null/defaultX3DEnvironmentNode</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: create new Environment for X3DEnvironmentNode-stack</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: register ViewpointBindable null/</p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: setBaseURL: </p>
+            <p style="margin: 0px; color: rgb(0, 255, 0);">INFO: webgl2 context found
+Vendor: WebKit Google Inc. (Intel), Renderer: WebKit WebGL ANGLE (Intel, Intel(R) UHD Graphics (0x00009B41) Direct3D11 vs_5_0 ps_5_0, D3D11), Version: WebGL 2.0 (OpenGL ES 3.0 Chromium), ShadingLangV.: WebGL GLSL ES 3.00 (OpenGL ES GLSL ES 3.0 Chromium), MSAA samples: 4
+Extensions: EXT_color_buffer_float, EXT_color_buffer_half_float, EXT_disjoint_timer_query_webgl2, EXT_float_blend, EXT_texture_compression_bptc, EXT_texture_compression_rgtc, EXT_texture_filter_anisotropic, EXT_texture_norm16, KHR_parallel_shader_compile, OES_draw_buffers_indexed, OES_texture_float_linear, OVR_multiview2, WEBGL_clip_cull_distance, WEBGL_compressed_texture_s3tc, WEBGL_compressed_texture_s3tc_srgb, WEBGL_debug_renderer_info, WEBGL_debug_shaders, WEBGL_lose_context, WEBGL_multi_draw, WEBGL_provoking_vertex</p><p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Initializing X3DCanvas for [x3dom-boxes-canvas]</p><p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Creating canvas for (X)3D element...</p><p style="margin: 0px; color: rgb(0, 255, 0);">INFO: Found 1 X3D and nodes...</p><p style="margin: 0px; color: rgb(0, 255, 0);">INFO: X3DOM 1.8.3, Build: 7482, Revison: <a href="https://github.com/x3dom/x3dom/tree/03da6d38708e4eafc94c2305fdc175312a880321">03da6d38708e4eafc94c2305fdc175312a880321</a>, Date: Tue Aug 1 11:18:17 2023 +0200</p></div><div id="x3dom-state-viewer" style="display: none;"><div class="x3dom-states-rendermode-hardware"></div><ul class="x3dom-states-list"><li class="x3dom-states-item"><div class="x3dom-states-item-title">FPS</div><div class="x3dom-states-item-value">0.12</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">ANIM</div><div class="x3dom-states-item-value">0.00</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">TRAVERSE</div><div class="x3dom-states-item-value">0.00</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">SORT</div><div class="x3dom-states-item-value">0.00</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">RENDER</div><div class="x3dom-states-item-value">0.10</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">DRAW</div><div class="x3dom-states-item-value">0.02</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">PICKING</div><div class="x3dom-states-item-value">1.40</div></li></ul><ul class="x3dom-states-list"><li class="x3dom-states-item"><div class="x3dom-states-item-title">#NODES:</div><div class="x3dom-states-item-value">14</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#SHAPES:</div><div class="x3dom-states-item-value">5</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#DRAWS:</div><div class="x3dom-states-item-value">5</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#POINTS:</div><div class="x3dom-states-item-value">1,502</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#TRIS:</div><div class="x3dom-states-item-value">2,534</div></li></ul><ul class="x3dom-states-list"><li class="x3dom-states-item"><div class="x3dom-states-item-title">#ACTIVE</div><div class="x3dom-states-item-value">0</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#TOTAL</div><div class="x3dom-states-item-value">0</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#LOADED</div><div class="x3dom-states-item-value">0</div></li><li class="x3dom-states-item"><div class="x3dom-states-item-title">#FAILED</div><div class="x3dom-states-item-value">0</div></li></ul></div><div class="x3dom-progress" style="display: flex; opacity: 0;"><div class="x3dom-progress-spinner"></div><div id="x3domProgessCount">0</div></div><div class="x3dom-vr" title="Toggle VR"></div></x3d>
+
+<div style="position:absolute;left:600px;top:70px;width:200px">
+	<h3>Last clicked object:</h3> 
+	<span id="lastClickedObject">coneShape</span>
+	
+	<br><br>
+	
+	<h3>Click coordinates:</h3>
+	<table style="font-size:1em;">
+		<tbody><tr><td>X: </td><td id="coordX">-4.02</td></tr>
+		<tr><td>Y: </td><td id="coordY">-0.92</td></tr>
+		<tr><td>Z: </td><td id="coordZ">-0.84</td></tr>
+	</tbody></table>
+</div>
+
+
+
+</body>
+</html>
