@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="../x3dom/x3dom.css">
 </head>
 <body>
+    
+<h1>Object picking example</h1>
+
+<p>
+Click on any shape to get the id and the coordinates of the hitting point.
+</p>
     <button onclick="document.getElementById('right').setAttribute('set_bind','true');">Right</button>
     <button onclick="document.getElementById('front').setAttribute('set_bind','true');">Left </button>
     <x3d width='900px' height='800px'>
@@ -58,7 +64,7 @@
             #mainNav {
                 position:absolute;
                 right:50px;
-                top:50px;
+                top:200px;
                 width:300px;
                 background-color:#EEE;
                 border:1px solid silver;
@@ -296,7 +302,8 @@
             <!-- walls  -->
             <!--left  //TODO reserrer les rangs gauches et droites   --> 
             <Transform class="table chaise" id="rang-1-0" rotation="0,0,0,0" translation="0 0 0">
-                <Inline url="../assets/bureau.glb"></Inline>
+               <!-- <Shape DEF="Table" id="test">  -->
+                <Inline DEF="Table" id ="test" url="../assets/bureau.glb"></Inline>
                 <Transform rotation="0,-1,0,1.5">
                     <Transform translation=".3 0 -.35">
                         <Inline url="../assets/chair.glb"></Inline>
@@ -448,11 +455,6 @@
 
 <body>
 
-<h1>Object picking example</h1>
-
-<p>
-Click on any shape to get the id and the coordinates of the hitting point.
-</p>
 <div style="position:absolute;left:600px;top:70px;width:200px">
 	<h3>Last clicked object:</h3> 
 	<span id="lastClickedObject">-</span>
