@@ -1,3 +1,4 @@
+ <!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +11,56 @@
 <body>
     <x3d width='1080px' height='800px'>
         <scene>
- <!--  <Inline url='../assets/Chair.x3d'></Inline> --> 
-    </scene>
-</x3d> 
+ <!--  <Inline url='../assets/Chair.x3d'></Inline> -->
+  <!--   </scene>
+</x3d>
+</body>
+</html>
+-->
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Web 3D</title>
+    <script type="text/javascript" src="../x3dom/x3dom.js"></script>
+    <link rel="stylesheet" href="../x3dom/x3dom.css">
+    <!-- Inclure la bibliothèque X3DOM pour travailler avec X3D dans le DOM -->
+    <script src="https://www.x3dom.org/download/x3dom.js"></script>
+</head>
+<body>
+    <!-- Définir une scène X3D -->
+    <x3d width="1080px" height="800px">
+        <scene>
+            <!-- Définir les informations de navigation -->
+            <navigationInfo type="EXAMINE WALK" />
+            
+            <!-- Ajouter un objet (dans cet exemple, un cube) -->
+            <shape>
+                <appearance>
+                    <material diffuseColor="1 0 0" />
+                </appearance>
+                <box size="2 2 2" />
+            </shape>
+        </scene>
+    </x3d>
+
+    <!-- Script JavaScript pour modifier le mode de navigation -->
+    <script>
+        // Attendre que le DOM soit complètement chargé
+        document.addEventListener('DOMContentLoaded', function () {
+            // Accéder au nœud NavigationInfo à l'aide de querySelector
+            var navigationInfoNode = document.querySelector('NavigationInfo');
+
+            // Modifier le type de mode de navigation (par exemple, passer à "ANY")
+            navigationInfoNode.setAttribute('type', 'ANY');
+        });
+    </script>
 </body>
 </html>
